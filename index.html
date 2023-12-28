@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        a {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Bulk message sender</h1>
+    <input type="text" name="" id="nums" placeholder="Numbers">
+    <input type="text" name="" id="messageVal" placeholder="Message">
+    <button onclick="sendMessage()">Send</button>
+
+    <script>
+
+        function sendMessage() {
+            let message = document.getElementById('messageVal').value
+            let nums = document.getElementById('nums').value
+            nums = nums.split(',')
+            message = message.replaceAll(' ', '+')
+            for (i = 0; i < nums.length; i++) {
+                let number = nums[i]
+                number = number.trim()
+                url = `https://wa.me/+91${number}?text=${message}`
+                console.log(url);
+                let link = document.createElement('a')
+                link.setAttribute('href', url)
+                link.innerHTML = 'send to ' + number
+                link.addEventListener('click', () => {
+                    link.style.display = 'none'
+                })
+                document.body.appendChild(link)
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>
