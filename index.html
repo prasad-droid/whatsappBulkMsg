@@ -1,48 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <style>
-        a {
-            display: block;
-        }
-    </style>
-</head>
+      body {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: #212121;
+      }
+      a {
+        display: block;
+        color: #0f0;
+        text-decoration: none;
+        padding: 10px;
+      }
+      h1 {
+        color: #eee;
+      }
+      input,
+      textarea {
+        width: 200px;
+        height: 45px;
+        border: none;
+        outline: none;
+        padding: 0px 7px;
+        border-radius: 6px;
+        color: #fff;
+        font-size: 15px;
+        background-color: transparent;
+        box-shadow: 3px 3px 10px rgba(0, 0, 0, 1),
+          -1px -1px 6px rgba(255, 255, 255, 0.4);
+          margin: 5px;
+      }
+      input:focus {
+        border: 2px solid transparent;
+        color: #fff;
+        box-shadow: 3px 3px 10px rgba(0, 0, 0, 1),
+          -1px -1px 6px rgba(255, 255, 255, 0.4),
+          inset 3px 3px 10px rgba(0, 0, 0, 1),
+          inset -1px -1px 6px rgba(255, 255, 255, 0.4);
+      }
 
-<body>
+      button {
+        font-weight: bold;
+        color: white;
+        border-radius: 2rem;
+        cursor: pointer;
+        width: 95.02px;
+        height: 42.66px;
+        border: none;
+        background-color: #3653f8;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    </style>
+  </head>
+
+  <body>
     <h1>Bulk message sender</h1>
-    <input type="text" name="" id="nums" placeholder="Numbers">
-    <input type="text" name="" id="messageVal" placeholder="Message">
+    <input type="text" name="" id="nums" placeholder="Numbers" />
+    <textarea
+      type="text"
+      id="messageVal"
+      placeholder="Message"
+      rows="5"
+      cols="20"
+    ></textarea>
     <button onclick="sendMessage()">Send</button>
 
     <script>
-
-        function sendMessage() {
-            let message = document.getElementById('messageVal').value
-            let nums = document.getElementById('nums').value
-            nums = nums.split(',')
-            message = message.replaceAll(' ', '+')
-            for (i = 0; i < nums.length; i++) {
-                let number = nums[i]
-                number = number.trim()
-                url = `https://wa.me/+91${number}?text=${message}`
-                console.log(url);
-                let link = document.createElement('a')
-                link.setAttribute('href', url)
-                link.innerHTML = 'send to ' + number
-                link.addEventListener('click', () => {
-                    link.style.display = 'none'
-                })
-                document.body.appendChild(link)
-            }
+      function sendMessage() {
+        let message = document.getElementById("messageVal").value;
+        let nums = document.getElementById("nums").value;
+        if (nums.includes(" ")) {
+          nums = nums.replaceAll(" ", ",");
         }
-
+        nums = nums.split(",");
+        console.log(nums);
+        message = message.replaceAll(" ", "+");
+        for (i = 0; i < nums.length; i++) {
+          let number = nums[i];
+          number = number.trim();
+          url = `https://wa.me/+91${number}?text=${message}`;
+          console.log(url);
+          let link = document.createElement("a");
+          link.setAttribute("href", url);
+          link.innerHTML = "send to " + number;
+          link.addEventListener("click", () => {
+            link.style.display = "none";
+          });
+          document.body.appendChild(link);
+        }
+      }
     </script>
-
-</body>
-
+  </body>
 </html>
